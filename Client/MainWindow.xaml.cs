@@ -29,14 +29,13 @@ namespace Client
             viewModel.IP = config.GetIP();
             DataContext = viewModel;
             InitializeComponent();
-            SendMessageFromSocket(8889);
         }
 
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(viewModel.IP);
+            SendMessageFromSocket(8889);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
