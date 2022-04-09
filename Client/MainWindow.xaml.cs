@@ -25,4 +25,10 @@ namespace Client
             InitializeComponent();
         }
     }
+
+    public partial class MainWindowViewModel
+    {
+
+    }
+
 }
