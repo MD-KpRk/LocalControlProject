@@ -97,7 +97,7 @@ namespace Server
                     if(data == "0")
                     {
                         Debug.WriteLine("Проверка связи");
-                        string reply = "Спасибо за запрос в " + data.Length.ToString() + " символов";
+                        string reply = "true";
                         byte[] msg = Encoding.UTF8.GetBytes(reply);
                         handler.Send(msg);
                     }
@@ -127,47 +127,5 @@ namespace Server
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-    //class Server2
-    //{
-    //    private IPEndPoint ip;
-    //    private Socket socket;
-    //    private int max_conn = 2;
-    //    private ManualResetEvent acceptEvent = new ManualResetEvent(false);
-    //    MainWindow window;
-
-    //    public Server2(MainWindow window)
-    //    {
-    //        this.window = window;
-    //        this.ip = new IPEndPoint(IPAddress.Any, 8888);
-    //        this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-    //        this.socket.Bind(this.ip);
-    //        this.socket.Listen(this.max_conn);
-    //    }
-
-    //    public void StartListening()
-    //    {
-    //        window.Dispatcher.BeginInvoke(new Action(() => { Debug.WriteLine("Server starting..."); }));
-    //        while (true)
-    //        {
-    //            acceptEvent.Reset();
-    //            this.socket.BeginAccept(new AsyncCallback(AcceptCallBack), this.socket);
-    //            acceptEvent.WaitOne();
-    //        }
-    //    }
-
-    //    private void AcceptCallBack(IAsyncResult ar)
-    //    {
-    //        Socket socket = (Socket)ar.AsyncState;
-    //        Socket accept_socket = socket.EndAccept(ar);
-    //        acceptEvent.Set();
-
-    //        byte[] bytes = new byte[1024];
-    //        int bytesRec = accept_socket.Receive(bytes);
-    //        string data = "";
-    //        data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-    //        Debug.Write("Полученный текст: " + data + "\n\n");
-    //    }
-    //}
 
 }

@@ -56,15 +56,16 @@ namespace Client
 
             try
             {
-                sender.Connect(ipEndPoint, TimeSpan.FromSeconds(3));
+                sender.Connect(ipEndPoint, TimeSpan.FromSeconds(1));
             }
             catch (SocketException e)
             {
                 if (e.ErrorCode == 10061)
-                    Console.WriteLine("Port is closed");
+                    MessageBox.Show("Порт закрыт");
                 else if (e.ErrorCode == 10060)
-                    Console.WriteLine("TimeOut");
-                else Console.WriteLine(e.Message);
+                    MessageBox.Show("Цель недоступна");
+                else MessageBox.Show(e.Message);
+                return;
             }
 
             Console.Write("Введите сообщение: ");
