@@ -29,6 +29,7 @@ namespace Client
             viewModel.IP = config.GetIP();
             DataContext = viewModel;
             InitializeComponent();
+            SendMessageFromSocket(8888);
         }
 
 

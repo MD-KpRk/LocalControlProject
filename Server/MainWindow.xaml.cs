@@ -26,6 +26,7 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
+            OpenServer();
         }
 
         public void OpenServer()
