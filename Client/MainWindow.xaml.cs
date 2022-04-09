@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,20 +17,39 @@ using System.Windows.Shapes;
 
 namespace Client
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowViewModel viewModel = new MainWindowViewModel();
         public MainWindow()
         {
+            DataContext = viewModel;
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(viewModel.IP);
         }
     }
 
-    public partial class MainWindowViewModel
+    public partial class MainWindowViewModel : INotifyPropertyChanged
     {
+        string ip = "";
+        public string IP
+        {
+            get { return ip; }
+            set
+            {
+                ip = value;
+                OnPropertyChanged("IP");
+            }
+        }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
     }
 
 }

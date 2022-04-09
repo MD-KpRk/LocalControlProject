@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Client"
+        xmlns:local="clr-namespace:Client" d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="Local Control. Управление" Height="450" Width="450" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -15,8 +15,8 @@
 
         <StackPanel>
             <TextBlock Text="IP Адрес цели" TextAlignment="Center" FontSize="20" />
-            <TextBox Margin="10 10 10 0" FontSize="15" TextAlignment="Center" />
-            <Button FontSize="15" Margin="10 10 10 0">
+            <TextBox Margin="10 10 10 0" FontSize="15" TextAlignment="Center" Text="{Binding IP}" />
+            <Button FontSize="15" Margin="10 10 10 0" Click="Button_Click">
                 <TextBlock TextWrapping="Wrap" Text="Проверить подключение" TextAlignment="Center" />
             </Button>
         </StackPanel>
