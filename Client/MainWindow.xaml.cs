@@ -71,11 +71,7 @@ namespace Client
             // Получаем ответ от сервера
             int bytesRec = sender.Receive(bytes);
 
-            Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
-
-            // Используем рекурсию для неоднократного вызова SendMessageFromSocket()
-            if (message.IndexOf("<TheEnd>") == -1)
-                SendMessageFromSocket(port);
+            Debug.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
 
             // Освобождаем сокет
             sender.Shutdown(SocketShutdown.Both);

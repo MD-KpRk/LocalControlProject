@@ -31,7 +31,7 @@ namespace Server
 
         public void OpenServer()
         {
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, 8888);
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, 8889);
             Socket sListener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
