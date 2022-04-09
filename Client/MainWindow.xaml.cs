@@ -31,8 +31,6 @@ namespace Client
             InitializeComponent();
         }
 
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SendMessageFromSocket(8889);
@@ -51,20 +49,13 @@ namespace Client
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(viewModel.IP), port);
             Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            // Нужна проверка на доступность
-            //sender.Connect(ipEndPoint);
-
             try
             {
                 sender.Connect(ipEndPoint, TimeSpan.FromSeconds(1));
             }
-            catch (SocketException e)
+            catch (Exception)
             {
-                if (e.ErrorCode == 10061)
-                    MessageBox.Show("Порт закрыт");
-                else if (e.ErrorCode == 10060)
-                    MessageBox.Show("Цель недоступна");
-                else MessageBox.Show(e.Message);
+                MessageBox.Show("Цель недоступна");
                 return;
             }
 
@@ -88,16 +79,8 @@ namespace Client
         }
     }
 
-
-    // new
     public static class SocketExtensions
     {
-        /// <summary>
-        /// Connects the specified socket.
-        /// </summary>
-        /// <param name="socket">The socket.</param>
-        /// <param name="endpoint">The IP endpoint.</param>
-        /// <param name="timeout">The timeout.</param>
         public static void Connect(this Socket socket, EndPoint endpoint, TimeSpan timeout)
         {
             var result = socket.BeginConnect(endpoint, null, null);
@@ -134,6 +117,4 @@ namespace Client
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
-
-
 }
