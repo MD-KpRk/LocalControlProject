@@ -20,8 +20,10 @@ namespace Client
     public partial class MainWindow : Window
     {
         MainWindowViewModel viewModel = new MainWindowViewModel();
+        Config config = new Config("cfg");
         public MainWindow()
         {
+            viewModel.IP = config.GetIP();
             DataContext = viewModel;
             InitializeComponent();
         }
@@ -30,11 +32,16 @@ namespace Client
         {
             MessageBox.Show(viewModel.IP);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            config.SetIP(viewModel.IP);
+        }
     }
 
     public partial class MainWindowViewModel : INotifyPropertyChanged
     {
-        string ip = "";
+        string ip;
         public string IP
         {
             get { return ip; }

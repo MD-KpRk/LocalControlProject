@@ -15,7 +15,7 @@
 
         <StackPanel>
             <TextBlock Text="IP Адрес цели" TextAlignment="Center" FontSize="20" />
-            <TextBox Margin="10 10 10 0" FontSize="15" TextAlignment="Center" Text="{Binding IP}" />
+            <TextBox Margin="10 10 10 0" FontSize="15" TextAlignment="Center" Text="{Binding IP, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" TextChanged="TextBox_TextChanged" />
             <Button FontSize="15" Margin="10 10 10 0" Click="Button_Click">
                 <TextBlock TextWrapping="Wrap" Text="Проверить подключение" TextAlignment="Center" />
             </Button>
