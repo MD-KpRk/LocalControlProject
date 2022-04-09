@@ -6,7 +6,21 @@
         xmlns:local="clr-namespace:Server"
         mc:Ignorable="d"
         Title="Local Control. Подчинение" Height="450" Width="400" WindowStartupLocation="CenterScreen">
-    <Grid>
+
+    <Window.Resources>
+        <local:MyViewModel x:Key="viewmodel"></local:MyViewModel>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource viewmodel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Margin="5">
+            <TextBlock Text="{Binding Text}" FontSize="15"/>
+        </StackPanel>
+
+        <TextBlock FontSize="72" Grid.Column="1" Text="{Binding Value}"></TextBlock>
 
     </Grid>
 </Window>

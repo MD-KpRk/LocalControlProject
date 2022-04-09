@@ -29,7 +29,7 @@ namespace Client
             viewModel.IP = config.GetIP();
             DataContext = viewModel;
             InitializeComponent();
-            SendMessageFromSocket(8888);
+            SendMessageFromSocket(8889);
         }
 
 
@@ -46,32 +46,41 @@ namespace Client
 
         void SendMessageFromSocket(int port)
         {
-            // Буфер для входящих данных
             byte[] bytes = new byte[1024];
 
-            // Соединяемся с удаленным устройством
 
-            // Устанавливаем удаленную точку для сокета
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(viewModel.IP), port);
-
             Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            // Соединяем сокет с удаленной точкой
-            sender.Connect(ipEndPoint);
+            // Нужна проверка на доступность
+            //sender.Connect(ipEndPoint);
+
+            try
+            {
+                sender.Connect(ipEndPoint, TimeSpan.FromSeconds(3));
+            }
+            catch (SocketException e)
+            {
+                if (e.ErrorCode == 10061)
+                    Console.WriteLine("Port is closed");
+                else if (e.ErrorCode == 10060)
+                    Console.WriteLine("TimeOut");
+                else Console.WriteLine(e.Message);
+            }
 
             Console.Write("Введите сообщение: ");
-            string message = "abob";
+            string message = "0";
 
-            Debug.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+            Debug.WriteLine("Сокет соединяется с " + sender.RemoteEndPoint.ToString());
             byte[] msg = Encoding.UTF8.GetBytes(message);
 
-            // Отправляем данные через сокет
             int bytesSent = sender.Send(msg);
 
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            Debug.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
+            if (message == "0")
+            {
+                int bytesRec = sender.Receive(bytes);
+                Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
+            }
 
             // Освобождаем сокет
             sender.Shutdown(SocketShutdown.Both);
@@ -80,8 +89,31 @@ namespace Client
     }
 
 
+    // new
+    public static class SocketExtensions
+    {
+        /// <summary>
+        /// Connects the specified socket.
+        /// </summary>
+        /// <param name="socket">The socket.</param>
+        /// <param name="endpoint">The IP endpoint.</param>
+        /// <param name="timeout">The timeout.</param>
+        public static void Connect(this Socket socket, EndPoint endpoint, TimeSpan timeout)
+        {
+            var result = socket.BeginConnect(endpoint, null, null);
 
-
+            bool success = result.AsyncWaitHandle.WaitOne(timeout, true);
+            if (success)
+            {
+                socket.EndConnect(result);
+            }
+            else
+            {
+                socket.Close();
+                throw new SocketException(10060); // Connection timed out.
+            }
+        }
+    }
 
     public partial class MainWindowViewModel : INotifyPropertyChanged
     {
