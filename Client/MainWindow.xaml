@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Local Control. Управление" Height="450" Width="450" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <StackPanel>
+            <TextBlock Text="IP Адрес цели" TextAlignment="Center" FontSize="20" />
+            <TextBox Margin="10 10 10 0" FontSize="15" TextAlignment="Center" />
+            <Button FontSize="15" Margin="10 10 10 0">
+                <TextBlock TextWrapping="Wrap" Text="Проверить подключение" TextAlignment="Center" />
+            </Button>
+        </StackPanel>
+
+        <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black" Grid.Column="1" />
+        
     </Grid>
 </Window>
