@@ -65,6 +65,12 @@ namespace Client
                 Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
             }
 
+            if (message == "2")
+            {
+                int bytesRec = sender.Receive(bytes);
+                Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
+            }
+
             // Освобождаем сокет
             sender.Shutdown(SocketShutdown.Both);
             sender.Close();

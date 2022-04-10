@@ -19,7 +19,7 @@
             <TextBlock Text="Сообщение" FontSize="15" TextAlignment="Center" Foreground="#FF404040" VerticalAlignment="Center" />
         </Grid>
         
-        <TextBlock TextAlignment="Center" Margin="10,10,10,10" TextWrapping="Wrap" FontSize="20" Text="{Binding Message}" Grid.Row="1" />
+        <TextBlock TextAlignment="Center" Margin="10,20,10,10" TextWrapping="Wrap" FontSize="20" Text="{Binding Message}" Grid.Row="1" />
         <Grid x:Name="Mode1" Grid.Row="2">
             <Button Content="OK" Width="100" Height="30" Click="Button_Click" />
         </Grid>

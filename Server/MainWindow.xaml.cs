@@ -102,6 +102,18 @@ namespace Server
                             byte[] msg = Encoding.UTF8.GetBytes(reply);
                             handler.Send(msg);
                         }
+                        if(data[0] == '2')
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            Process[] process = Process.GetProcesses();
+                            foreach (Process prs in process)
+                            {
+                                sb.Append(prs.ProcessName + "         (" + prs.PrivateMemorySize64.ToString() + ")\n");
+                            }
+
+                            byte[] msg = Encoding.UTF8.GetBytes(sb.ToString());
+                            handler.Send(msg);
+                        }
                         else
                         {
                             CommandManager.FindCommand(data);
