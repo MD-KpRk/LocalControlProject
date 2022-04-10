@@ -31,17 +31,12 @@ namespace Client
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            SendMessageFromSocket(8889);
-        }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             config.SetIP(viewModel.IP);
         }
 
-        void SendMessageFromSocket(int port)
+        void SendMessageFromSocket(int port, string message)
         {
             byte[] bytes = new byte[1024];
 
@@ -58,7 +53,6 @@ namespace Client
                 MessageBox.Show("Цель недоступна");
                 return;
             }
-            string message = "0";
 
             Debug.WriteLine("Сокет соединяется с " + sender.RemoteEndPoint.ToString());
             byte[] msg = Encoding.UTF8.GetBytes(message);
@@ -74,6 +68,16 @@ namespace Client
             // Освобождаем сокет
             sender.Shutdown(SocketShutdown.Both);
             sender.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) // Проверка связи
+        {
+            SendMessageFromSocket(8889, "0;test");
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SendMessageFromSocket(8889, viewModel.Command);
         }
     }
 
@@ -98,7 +102,7 @@ namespace Client
 
     public partial class MainWindowViewModel : INotifyPropertyChanged
     {
-        string ip ="";
+        string ip ="", command ="";
         public string IP
         {
             get { return ip; }
@@ -106,6 +110,16 @@ namespace Client
             {
                 ip = value;
                 OnPropertyChanged("IP");
+            }
+        }
+
+        public string Command
+        {
+            get { return command; }
+            set 
+            { 
+                command = value; 
+                OnPropertyChanged("Command"); 
             }
         }
 
