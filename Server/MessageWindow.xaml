@@ -1,0 +1,28 @@
+﻿<Window x:Class="Server.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Server" d:DataContext="{d:DesignInstance Type=local:MessageWindowViewModel}"
+        mc:Ignorable="d"
+        Title="Сообщение" Height="200" Width="400" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.RowSpan="3" Panel.ZIndex="2" BorderBrush="#FF5B5B5B" BorderThickness="1" />
+
+        <Grid Background="#FFDEDEDE" MouseLeftButtonDown="Grid_MouseLeftButtonDown" >
+            <TextBlock Text="Сообщение" FontSize="15" TextAlignment="Center" Foreground="#FF404040" VerticalAlignment="Center" />
+        </Grid>
+        
+        <TextBlock TextAlignment="Center" Margin="10,10,10,10" TextWrapping="Wrap" FontSize="20" Text="{Binding Message}" Grid.Row="1" />
+        <Grid x:Name="Mode1" Grid.Row="2">
+            <Button Content="OK" Width="100" Height="30" Click="Button_Click" />
+        </Grid>
+
+    </Grid>
+</Window>

@@ -89,24 +89,33 @@ namespace Server
                     int bytesRec = handler.Receive(bytes);
                     string data = "" + Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
-                    Debug.Write("Полученный текст: " + data + "\n\n");
-
-                    Text = data;
-
-                    if (data[0] == '0')
+                    try
                     {
-                        Debug.WriteLine("Проверка связи");
-                        string reply = "true";
-                        byte[] msg = Encoding.UTF8.GetBytes(reply);
-                        handler.Send(msg);
-                    }
-                    else
-                    {
-                        CommandManager.FindCommand(data);
-                    }
+                        Debug.Write("Полученный текст: " + data + "\n\n");
 
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
+                        Text = data;
+
+                        if (data[0] == '0')
+                        {
+                            Debug.WriteLine("Проверка связи");
+                            string reply = "true";
+                            byte[] msg = Encoding.UTF8.GetBytes(reply);
+                            handler.Send(msg);
+                        }
+                        else
+                        {
+                            CommandManager.FindCommand(data);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        handler.Shutdown(SocketShutdown.Both);
+                        handler.Close();
+                    }
                 }
             }
             catch (Exception ex)

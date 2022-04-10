@@ -12,7 +12,13 @@ namespace Server
 
         public static void FindCommand(string command)
         {
+            if(!command.Contains(";"))
+            {
+                throw new Exception("Неправильный формат команды");
+            }
+            
             string[] args = command.Split(';');
+
             int intcom = Convert.ToInt32(args[0]);
             string param = args[1].Trim();
 
@@ -30,7 +36,11 @@ namespace Server
 
         public static void ShowMessage(string str)
         {
-            MessageBox.Show(str,"Информация",MessageBoxButton.OK,MessageBoxImage.Warning);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageWindow window = new MessageWindow(str);
+                window.Show();
+            });
         }
 
     }
