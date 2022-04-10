@@ -21,17 +21,14 @@ using System.Windows.Shapes;
 
 namespace Server
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
-
     public partial class MainWindow : Window
     {
-
+        MyViewModel viewModel = new MyViewModel();
         public MainWindow()
         {
+            DataContext = viewModel;
             InitializeComponent();
+            
         }
     }
 
@@ -94,20 +91,18 @@ namespace Server
 
                     Debug.Write("Полученный текст: " + data + "\n\n");
 
-                    if(data == "0")
+                    Text = data;
+
+                    if (data[0] == '0')
                     {
                         Debug.WriteLine("Проверка связи");
                         string reply = "true";
                         byte[] msg = Encoding.UTF8.GetBytes(reply);
                         handler.Send(msg);
                     }
-
-                    Text = data;
-
-                    if (data.IndexOf("<TheEnd>") > -1)
+                    else
                     {
-                        Debug.WriteLine("Сервер завершил соединение с клиентом.");
-                        break;
+                        CommandManager.FindCommand(data);
                     }
 
                     handler.Shutdown(SocketShutdown.Both);

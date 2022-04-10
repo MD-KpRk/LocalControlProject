@@ -58,8 +58,6 @@ namespace Client
                 MessageBox.Show("Цель недоступна");
                 return;
             }
-
-            Console.Write("Введите сообщение: ");
             string message = "0";
 
             Debug.WriteLine("Сокет соединяется с " + sender.RemoteEndPoint.ToString());

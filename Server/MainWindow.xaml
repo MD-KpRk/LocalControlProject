@@ -7,11 +7,9 @@
         mc:Ignorable="d"
         Title="Local Control. Подчинение" Height="450" Width="400" WindowStartupLocation="CenterScreen">
 
-    <Window.Resources>
-        <local:MyViewModel x:Key="viewmodel"></local:MyViewModel>
-    </Window.Resources>
 
-    <Grid DataContext="{StaticResource viewmodel}">
+
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
