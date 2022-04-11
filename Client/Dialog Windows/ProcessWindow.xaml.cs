@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using Client.Models;
+using System.Diagnostics;
 
 namespace Client.Dialog_Windows
 {
@@ -33,8 +34,24 @@ namespace Client.Dialog_Windows
 
         void UpdateProcessList()
         {
-            string answer = window.SendMessageFromSocket(window.Port, "2;");
-            MessageBox.Show(answer);
+            try
+            {
+                string answer = window.SendMessageFromSocket(window.Port, "2;");
+                string[] processes = answer.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                List<ProcessModel> list = new List<ProcessModel>();
+                for (int i = 0; i < processes.Length; i++)
+                {
+                    string[] process = processes[i].Split('|');
+                    int id;
+                    if(int.TryParse(process[1],out id))
+                    list.Add(new ProcessModel() { ProcessName = process[0], ProcessId = id });
+                }
+                viewModel.List = new ObservableCollection<ProcessModel>(list);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,7 +64,7 @@ namespace Client.Dialog_Windows
     {
         ObservableCollection<ProcessModel> list = new ObservableCollection<ProcessModel>();
 
-        ObservableCollection<ProcessModel> List
+        public ObservableCollection<ProcessModel> List
         {
             get { return list; }
             set { list = value; OnPropertyChanged("List"); }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.Models
 {
-    internal class ProcessModel
+    public class ProcessModel
     {
         public string ProcessName { get; set; } = "";
         public int ProcessId { get; set; }
