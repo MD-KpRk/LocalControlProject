@@ -22,6 +22,8 @@ namespace Client
 {
     public partial class MainWindow : Window
     {
+        public int Port = 8889;
+
         MainWindowViewModel viewModel = new MainWindowViewModel();
         Config config = new Config("cfg");
         public MainWindow()
@@ -78,19 +80,20 @@ namespace Client
 
         private void Button_Click(object sender, RoutedEventArgs e) // Проверка связи
         {
-            SendMessageFromSocket(8889, "0;test");
+            SendMessageFromSocket(Port, "0;test");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            SendMessageFromSocket(8889, viewModel.Command);
+            SendMessageFromSocket(Port, viewModel.Command);
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Dialog_Windows.MessageWindow messageWindow = new Dialog_Windows.MessageWindow();
             messageWindow.ShowDialog();
-            string message;
+            if (messageWindow.Succes == false) return;
+            SendMessageFromSocket(Port, "1;" + messageWindow.viewModel.Message);
         }
     }
 

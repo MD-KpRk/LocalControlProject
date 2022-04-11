@@ -16,21 +16,27 @@ using System.Windows.Shapes;
 
 namespace Client.Dialog_Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для MessageWindow.xaml
-    /// </summary>
     public partial class MessageWindow : Window
     {
-        MessageWindowViewModel viewModel = new MessageWindowViewModel();
+        public MessageWindowViewModel viewModel = new MessageWindowViewModel();
+        bool succes = false;
+        public bool Succes { get => succes; }
         public MessageWindow()
         {
             DataContext = viewModel;
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e) // Отмена
         {
+            succes = false;
+            Close();
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e) // Отправить
+        {
+            succes = true;
+            Close();
         }
     }
 
