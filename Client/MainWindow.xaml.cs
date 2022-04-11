@@ -55,8 +55,7 @@ namespace Client
             }
             catch (Exception)
             {
-                MessageBox.Show("Цель недоступна");
-                return answer;
+                throw new Exception("Цель недоступна");
             }
 
             Debug.WriteLine("Сокет соединяется с " + sender.RemoteEndPoint.ToString());
@@ -86,7 +85,14 @@ namespace Client
 
         private void Button_Click(object sender, RoutedEventArgs e) // Проверка связи
         {
-            SendMessageFromSocket(Port, "0;test");
+            try
+            {
+                SendMessageFromSocket(Port, "0;test");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -99,7 +105,14 @@ namespace Client
             Dialog_Windows.MessageWindow messageWindow = new Dialog_Windows.MessageWindow();
             messageWindow.ShowDialog();
             if (messageWindow.Succes == false) return;
-            SendMessageFromSocket(Port, "1;" + messageWindow.viewModel.Message);
+            try
+            {
+                SendMessageFromSocket(Port, "1;" + messageWindow.viewModel.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
