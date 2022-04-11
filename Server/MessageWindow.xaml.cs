@@ -40,6 +40,8 @@ namespace Server
 
     public partial class MessageWindowViewModel : INotifyPropertyChanged
     {
+
+
         string message = "";
         public string Message
         {

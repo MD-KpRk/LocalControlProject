@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,10 @@ namespace Server
 {
     public static class CommandManager
     {
+        
+
+
+
 
         public static void FindCommand(string command)
         {
@@ -28,9 +33,17 @@ namespace Server
                     ShowMessage(param);
                     break;
 
+                case 3:
+                    int number = 0;
+                    try
+                    {
+                        number = Convert.ToInt32(param);
+                        KillProcess(number);
+                    }
+                    catch (Exception) { }
+                    break;
 
-
-
+                    
                 default: 
                     throw new ArgumentException("Запрос несуществующей команды");
             }
@@ -38,7 +51,11 @@ namespace Server
 
 
 
-
+        public static void KillProcess(int number)
+        {
+            Process processes = Process.GetProcessById(number);
+            processes.Kill();
+        }
 
         public static void ShowMessage(string str)
         {
