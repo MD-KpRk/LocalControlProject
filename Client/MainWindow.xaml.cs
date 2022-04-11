@@ -43,6 +43,7 @@ namespace Client
             byte[] bytes = new byte[1024];
 
 
+
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(viewModel.IP), port);
             Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -59,7 +60,7 @@ namespace Client
             Debug.WriteLine("Сокет соединяется с " + sender.RemoteEndPoint.ToString());
             byte[] msg = Encoding.UTF8.GetBytes(message);
 
-            int bytesSent = sender.Send(msg);
+            sender.Send(msg);
 
             if (message == "0")
             {
@@ -94,6 +95,11 @@ namespace Client
             messageWindow.ShowDialog();
             if (messageWindow.Succes == false) return;
             SendMessageFromSocket(Port, "1;" + messageWindow.viewModel.Message);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

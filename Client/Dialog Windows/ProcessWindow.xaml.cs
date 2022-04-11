@@ -11,27 +11,37 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
-using System.Drawing;         //For Icon
-using System.Reflection;      //For Assembly
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using Client.Models;
 
 namespace Client.Dialog_Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для ProcessWindow.xaml
-    /// </summary>
     public partial class ProcessWindow : Window
     {
-        public ProcessWindow()
+        ProcessWindowViewModel viewModel = new ProcessWindowViewModel();
+        public ProcessWindow(string process_str)
         {
-            //var icon = Process.GetProcessById(1234).GetIcon()
             InitializeComponent();
         }
     }
 
+    public partial class ProcessWindowViewModel : INotifyPropertyChanged
+    {
+        ObservableCollection<ProcessModel> list = new ObservableCollection<ProcessModel>();
 
+        ObservableCollection<ProcessModel> List
+        {
+            get { return list; }
+            set { list = value; OnPropertyChanged("List"); }
+        }
 
-    
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+    }
+
 }
