@@ -24,6 +24,11 @@
             <Button FontSize="15" Margin="10 10 10 0" Click="Button_Click_1" VerticalContentAlignment="Center" Height="40" Content="Отправить" />
         </StackPanel>
 
+        <StackPanel Grid.Column="2">
+            <Button Height="40" Margin="20 20 20 0" Content="Отправить сообщение" FontSize="15" Click="Button_Click_2" />
+            <Button Height="40" Margin="20 20 20 0" Content="Управление приложениями" FontSize="15" />
+        </StackPanel>
+
         <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black" Grid.Column="1" />
         
     </Grid>

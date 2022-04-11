@@ -85,6 +85,13 @@ namespace Client
         {
             SendMessageFromSocket(8889, viewModel.Command);
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Dialog_Windows.MessageWindow messageWindow = new Dialog_Windows.MessageWindow();
+            messageWindow.ShowDialog();
+            string message;
+        }
     }
 
     public static class SocketExtensions

@@ -1,0 +1,22 @@
+﻿<Window x:Class="Client.Dialog_Windows.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.Dialog_Windows" d:DataContext="{d:DesignInstance Type=local:MessageWindowViewModel}"
+        mc:Ignorable="d"
+        Title="Ввод сообщения" Height="300" Width="450" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel>
+            <TextBox Height="140" Margin="30 30 30 30" FontSize="15" Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}" />
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Height="40" Margin="30 0 30 0" Content="Отменить" FontSize="15" Click="Button_Click" />
+                <Button Height="40" Margin="30 0 30 0" Content="Отправить" FontSize="15" Grid.Column="1" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
