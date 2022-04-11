@@ -26,8 +26,8 @@ namespace Client.Dialog_Windows
         {
             DataContext = viewModel;
             this.window = window;
-            UpdateProcessList();
             InitializeComponent();
+            UpdateProcessList();
         }
 
 

@@ -41,6 +41,9 @@ namespace Client
 
         public string SendMessageFromSocket(int port, string message)
         {
+            if (message == null) return "";
+            if (String.IsNullOrEmpty(message)) return "";
+
             byte[] bytes = new byte[1024];
             string answer = "";
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(viewModel.IP), port);
@@ -61,18 +64,18 @@ namespace Client
 
             sender.Send(msg);
 
-            if (message == "0")
+            if (message[0] == '0')
             {
                 int bytesRec = sender.Receive(bytes);
                 answer = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-                Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
+                Debug.WriteLine("\nОтвет от сервера: " + answer);
             }
 
-            if (message == "2")
+            if (message[0] == '2')
             {
                 int bytesRec = sender.Receive(bytes);
                 answer = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-                Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
+                Debug.WriteLine("\nОтвет от сервера: " + answer);
             }
 
             // Освобождаем сокет
@@ -102,6 +105,7 @@ namespace Client
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             ProcessWindow processWindow = new ProcessWindow(this);
+            processWindow.Show();
         }
     }
 
