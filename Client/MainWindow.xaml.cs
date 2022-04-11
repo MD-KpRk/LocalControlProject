@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Dialog_Windows;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -38,12 +39,10 @@ namespace Client
             config.SetIP(viewModel.IP);
         }
 
-        void SendMessageFromSocket(int port, string message)
+        public string SendMessageFromSocket(int port, string message)
         {
             byte[] bytes = new byte[1024];
-
-
-
+            string answer = "";
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(viewModel.IP), port);
             Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -54,7 +53,7 @@ namespace Client
             catch (Exception)
             {
                 MessageBox.Show("Цель недоступна");
-                return;
+                return answer;
             }
 
             Debug.WriteLine("Сокет соединяется с " + sender.RemoteEndPoint.ToString());
@@ -65,18 +64,21 @@ namespace Client
             if (message == "0")
             {
                 int bytesRec = sender.Receive(bytes);
+                answer = Encoding.UTF8.GetString(bytes, 0, bytesRec);
                 Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
             }
 
             if (message == "2")
             {
                 int bytesRec = sender.Receive(bytes);
+                answer = Encoding.UTF8.GetString(bytes, 0, bytesRec);
                 Debug.WriteLine("\nОтвет от сервера: " + Encoding.UTF8.GetString(bytes, 0, bytesRec));
             }
 
             // Освобождаем сокет
             sender.Shutdown(SocketShutdown.Both);
             sender.Close();
+            return answer;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) // Проверка связи
@@ -99,7 +101,7 @@ namespace Client
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-
+            ProcessWindow processWindow = new ProcessWindow(this);
         }
     }
 

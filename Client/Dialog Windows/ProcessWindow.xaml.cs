@@ -21,10 +21,22 @@ namespace Client.Dialog_Windows
     public partial class ProcessWindow : Window
     {
         ProcessWindowViewModel viewModel = new ProcessWindowViewModel();
-        public ProcessWindow(string process_str)
+        MainWindow window;
+        public ProcessWindow(MainWindow window)
         {
+            DataContext = viewModel;
+            this.window = window;
+            UpdateProcessList();
             InitializeComponent();
         }
+
+
+        void UpdateProcessList()
+        {
+            string answer = window.SendMessageFromSocket(window.Port, "2;");
+            MessageBox.Show(answer);
+        }
+
     }
 
     public partial class ProcessWindowViewModel : INotifyPropertyChanged
