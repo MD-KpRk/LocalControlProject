@@ -37,6 +37,10 @@ namespace Client.Dialog_Windows
             MessageBox.Show(answer);
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public partial class ProcessWindowViewModel : INotifyPropertyChanged
