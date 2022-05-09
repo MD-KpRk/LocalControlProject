@@ -19,6 +19,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//test
+
 namespace Client
 {
     public partial class MainWindow : Window
